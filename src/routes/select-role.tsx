@@ -35,14 +35,14 @@ function SelectRolePage() {
   async function save() {
     if (!user) return;
     setSaving(true);
-    const { error } = await supabase.from("user_roles").insert({ user_id: user.id, role: selected });
+    const { role: assigned, error } = await ensureRole(user.id, selected);
     setSaving(false);
-    if (error) {
-      toast.error(error.message);
+    if (error || !assigned) {
+      toast.error(error ?? "Could not set your role.");
       return;
     }
     refresh();
-    navigate({ to: selected === "tutor" ? "/tutor/profile-setup" : "/student/dashboard", replace: true });
+    navigate({ to: assigned === "tutor" ? "/tutor/profile-setup" : "/student/dashboard", replace: true });
   }
 
   const options = [
