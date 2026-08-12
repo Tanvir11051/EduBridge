@@ -3,8 +3,8 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { BookOpen, GraduationCap, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { supabase } from "@/integrations/supabase/client";
 import { useAuth, homePathForRole, type AppRole } from "@/hooks/use-auth";
+import { ensureRole } from "@/lib/ensure-role";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/select-role")({
