@@ -56,10 +56,12 @@ function AdminComplaints() {
   });
 
   async function update(id: string, status: string) {
+    const note = notes[id]?.trim();
     const { error } = await supabase
       .from("complaints")
-      .update({ status, admin_note: notes[id]?.trim() || undefined })
+      .update(note ? { status, admin_note: note } : { status })
       .eq("id", id);
+
     if (error) {
       toast.error(error.message);
       return;

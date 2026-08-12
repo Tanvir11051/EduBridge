@@ -20,6 +20,10 @@ import { Route as AuthenticatedNotificationsRouteImport } from './routes/_authen
 import { Route as AuthenticatedStudentRouteImport } from './routes/_authenticated.student'
 import { Route as AuthenticatedTutorRouteImport } from './routes/_authenticated.tutor'
 import { Route as ApiChatbotRouteImport } from './routes/api/chatbot'
+import { Route as AuthenticatedAdminComplaintsRouteImport } from './routes/_authenticated.admin.complaints'
+import { Route as AuthenticatedAdminDashboardRouteImport } from './routes/_authenticated.admin.dashboard'
+import { Route as AuthenticatedAdminOffersRouteImport } from './routes/_authenticated.admin.offers'
+import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated.admin.users'
 import { Route as AuthenticatedStudentComplaintsRouteImport } from './routes/_authenticated.student.complaints'
 import { Route as AuthenticatedStudentDashboardRouteImport } from './routes/_authenticated.student.dashboard'
 import { Route as AuthenticatedStudentOffersRouteImport } from './routes/_authenticated.student.offers'
@@ -91,6 +95,29 @@ const ApiChatbotRoute = ApiChatbotRouteImport.update({
   id: '/api/chatbot',
   path: '/api/chatbot',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminComplaintsRoute =
+  AuthenticatedAdminComplaintsRouteImport.update({
+    id: '/complaints',
+    path: '/complaints',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminDashboardRoute =
+  AuthenticatedAdminDashboardRouteImport.update({
+    id: '/dashboard',
+    path: '/dashboard',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminOffersRoute =
+  AuthenticatedAdminOffersRouteImport.update({
+    id: '/offers',
+    path: '/offers',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
 const AuthenticatedStudentComplaintsRoute =
   AuthenticatedStudentComplaintsRouteImport.update({
@@ -195,11 +222,15 @@ export interface FileRoutesByFullPath {
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/select-role': typeof SelectRoleRoute
-  '/admin': typeof AuthenticatedAdminRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/notifications': typeof AuthenticatedNotificationsRoute
   '/student': typeof AuthenticatedStudentRouteWithChildren
   '/tutor': typeof AuthenticatedTutorRouteWithChildren
   '/api/chatbot': typeof ApiChatbotRoute
+  '/admin/complaints': typeof AuthenticatedAdminComplaintsRoute
+  '/admin/dashboard': typeof AuthenticatedAdminDashboardRoute
+  '/admin/offers': typeof AuthenticatedAdminOffersRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/student/complaints': typeof AuthenticatedStudentComplaintsRoute
   '/student/dashboard': typeof AuthenticatedStudentDashboardRoute
   '/student/offers': typeof AuthenticatedStudentOffersRoute
@@ -223,11 +254,15 @@ export interface FileRoutesByTo {
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/select-role': typeof SelectRoleRoute
-  '/admin': typeof AuthenticatedAdminRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/notifications': typeof AuthenticatedNotificationsRoute
   '/student': typeof AuthenticatedStudentRouteWithChildren
   '/tutor': typeof AuthenticatedTutorRouteWithChildren
   '/api/chatbot': typeof ApiChatbotRoute
+  '/admin/complaints': typeof AuthenticatedAdminComplaintsRoute
+  '/admin/dashboard': typeof AuthenticatedAdminDashboardRoute
+  '/admin/offers': typeof AuthenticatedAdminOffersRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/student/complaints': typeof AuthenticatedStudentComplaintsRoute
   '/student/dashboard': typeof AuthenticatedStudentDashboardRoute
   '/student/offers': typeof AuthenticatedStudentOffersRoute
@@ -253,11 +288,15 @@ export interface FileRoutesById {
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
   '/select-role': typeof SelectRoleRoute
-  '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/notifications': typeof AuthenticatedNotificationsRoute
   '/_authenticated/student': typeof AuthenticatedStudentRouteWithChildren
   '/_authenticated/tutor': typeof AuthenticatedTutorRouteWithChildren
   '/api/chatbot': typeof ApiChatbotRoute
+  '/_authenticated/admin/complaints': typeof AuthenticatedAdminComplaintsRoute
+  '/_authenticated/admin/dashboard': typeof AuthenticatedAdminDashboardRoute
+  '/_authenticated/admin/offers': typeof AuthenticatedAdminOffersRoute
+  '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
   '/_authenticated/student/complaints': typeof AuthenticatedStudentComplaintsRoute
   '/_authenticated/student/dashboard': typeof AuthenticatedStudentDashboardRoute
   '/_authenticated/student/offers': typeof AuthenticatedStudentOffersRoute
@@ -288,6 +327,10 @@ export interface FileRouteTypes {
     | '/student'
     | '/tutor'
     | '/api/chatbot'
+    | '/admin/complaints'
+    | '/admin/dashboard'
+    | '/admin/offers'
+    | '/admin/users'
     | '/student/complaints'
     | '/student/dashboard'
     | '/student/offers'
@@ -316,6 +359,10 @@ export interface FileRouteTypes {
     | '/student'
     | '/tutor'
     | '/api/chatbot'
+    | '/admin/complaints'
+    | '/admin/dashboard'
+    | '/admin/offers'
+    | '/admin/users'
     | '/student/complaints'
     | '/student/dashboard'
     | '/student/offers'
@@ -345,6 +392,10 @@ export interface FileRouteTypes {
     | '/_authenticated/student'
     | '/_authenticated/tutor'
     | '/api/chatbot'
+    | '/_authenticated/admin/complaints'
+    | '/_authenticated/admin/dashboard'
+    | '/_authenticated/admin/offers'
+    | '/_authenticated/admin/users'
     | '/_authenticated/student/complaints'
     | '/_authenticated/student/dashboard'
     | '/_authenticated/student/offers'
@@ -451,6 +502,34 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/chatbot'
       preLoaderRoute: typeof ApiChatbotRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin/complaints': {
+      id: '/_authenticated/admin/complaints'
+      path: '/complaints'
+      fullPath: '/admin/complaints'
+      preLoaderRoute: typeof AuthenticatedAdminComplaintsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/dashboard': {
+      id: '/_authenticated/admin/dashboard'
+      path: '/dashboard'
+      fullPath: '/admin/dashboard'
+      preLoaderRoute: typeof AuthenticatedAdminDashboardRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/offers': {
+      id: '/_authenticated/admin/offers'
+      path: '/offers'
+      fullPath: '/admin/offers'
+      preLoaderRoute: typeof AuthenticatedAdminOffersRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/users': {
+      id: '/_authenticated/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AuthenticatedAdminUsersRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/student/complaints': {
       id: '/_authenticated/student/complaints'
@@ -567,6 +646,23 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminComplaintsRoute: typeof AuthenticatedAdminComplaintsRoute
+  AuthenticatedAdminDashboardRoute: typeof AuthenticatedAdminDashboardRoute
+  AuthenticatedAdminOffersRoute: typeof AuthenticatedAdminOffersRoute
+  AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRoute
+}
+
+const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminComplaintsRoute: AuthenticatedAdminComplaintsRoute,
+  AuthenticatedAdminDashboardRoute: AuthenticatedAdminDashboardRoute,
+  AuthenticatedAdminOffersRoute: AuthenticatedAdminOffersRoute,
+  AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRoute,
+}
+
+const AuthenticatedAdminRouteWithChildren =
+  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
+
 interface AuthenticatedStudentRouteChildren {
   AuthenticatedStudentComplaintsRoute: typeof AuthenticatedStudentComplaintsRoute
   AuthenticatedStudentDashboardRoute: typeof AuthenticatedStudentDashboardRoute
@@ -618,14 +714,14 @@ const AuthenticatedTutorRouteWithChildren =
   AuthenticatedTutorRoute._addFileChildren(AuthenticatedTutorRouteChildren)
 
 interface AuthenticatedRouteChildren {
-  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
   AuthenticatedNotificationsRoute: typeof AuthenticatedNotificationsRoute
   AuthenticatedStudentRoute: typeof AuthenticatedStudentRouteWithChildren
   AuthenticatedTutorRoute: typeof AuthenticatedTutorRouteWithChildren
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
-  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
   AuthenticatedNotificationsRoute: AuthenticatedNotificationsRoute,
   AuthenticatedStudentRoute: AuthenticatedStudentRouteWithChildren,
   AuthenticatedTutorRoute: AuthenticatedTutorRouteWithChildren,
@@ -647,13 +743,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
