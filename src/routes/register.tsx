@@ -8,9 +8,8 @@ import { Label } from "@/components/ui/label";
 import { PasswordInput } from "@/components/ui/password-input";
 
 import { supabase } from "@/integrations/supabase/client";
-import { useAuth, homePathForRole, type AppRole } from "@/hooks/use-auth";
-import { ensureRole } from "@/lib/ensure-role";
-import { cn } from "@/lib/utils";
+import { useAuth, homePathForRole } from "@/hooks/use-auth";
+
 
 export const Route = createFileRoute("/register")({
   head: () => ({
@@ -33,7 +32,7 @@ function RegisterPage() {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [selectedRole, setSelectedRole] = useState<AppRole>("student");
+  
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -65,16 +64,11 @@ function RegisterPage() {
       toast.success("Check your email to confirm your account.");
       return;
     }
-    const { role: assigned, error: roleError } = await ensureRole(data.session.user.id, selectedRole);
     setSubmitting(false);
-    if (roleError || !assigned) {
-      toast.error("Account created, but we couldn't set your role. Pick it on the next screen.");
-      navigate({ to: "/select-role" });
-      return;
-    }
     refresh();
     toast.success("Account created!");
-    navigate({ to: assigned === "tutor" ? "/tutor/profile-setup" : "/student/dashboard", replace: true });
+    navigate({ to: "/select-role", replace: true });
+
   }
 
   return (
@@ -115,26 +109,6 @@ function RegisterPage() {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-          </div>
-          <div className="space-y-2">
-            <Label>I am a…</Label>
-            <div className="grid grid-cols-2 gap-3">
-              {(["student", "tutor"] as const).map((r) => (
-                <button
-                  type="button"
-                  key={r}
-                  onClick={() => setSelectedRole(r)}
-                  className={cn(
-                    "rounded-lg border px-4 py-3 text-sm font-medium capitalize transition-colors",
-                    selectedRole === r
-                      ? "border-primary bg-accent text-accent-foreground"
-                      : "border-border bg-background text-muted-foreground hover:bg-accent/50",
-                  )}
-                >
-                  {r}
-                </button>
-              ))}
-            </div>
           </div>
           <Button type="submit" className="w-full" disabled={submitting}>
             {submitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
