@@ -174,6 +174,38 @@ export function TutorProfileForm({ redirectOnCreate = false }: { redirectOnCreat
         </div>
       </div>
 
+      <div className="space-y-2">
+        <Label>Demo class videos (YouTube)</Label>
+        <p className="text-sm text-muted-foreground">Students can watch these on your profile.</p>
+        <div className="space-y-2">
+          {videos.map((v, i) => (
+            <div key={i} className="flex items-center gap-2">
+              <Input
+                value={v}
+                onChange={(e) => setVideos(videos.map((x, j) => (j === i ? e.target.value : x)))}
+                placeholder="https://www.youtube.com/watch?v=..."
+              />
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                aria-label="Remove video link"
+                onClick={() => {
+                  const next = videos.filter((_, j) => j !== i);
+                  setVideos(next.length ? next : [""]);
+                }}
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+          ))}
+        </div>
+        <Button type="button" variant="outline" size="sm" onClick={() => setVideos([...videos, ""])}>
+          <Plus className="mr-2 h-4 w-4" /> Add another video
+        </Button>
+      </div>
+
+
       <div className="flex items-center justify-between rounded-lg border border-border p-4">
         <div>
           <p className="text-sm font-medium text-foreground">Visible in search</p>
