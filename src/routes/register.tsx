@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth, homePathForRole, type AppRole } from "@/hooks/use-auth";
+import { ensureRole } from "@/lib/ensure-role";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/register")({
@@ -62,18 +63,16 @@ function RegisterPage() {
       toast.success("Check your email to confirm your account.");
       return;
     }
-    const { error: roleError } = await supabase
-      .from("user_roles")
-      .insert({ user_id: data.session.user.id, role: selectedRole });
+    const { role: assigned, error: roleError } = await ensureRole(data.session.user.id, selectedRole);
     setSubmitting(false);
-    if (roleError) {
+    if (roleError || !assigned) {
       toast.error("Account created, but we couldn't set your role. Pick it on the next screen.");
       navigate({ to: "/select-role" });
       return;
     }
     refresh();
     toast.success("Account created!");
-    navigate({ to: selectedRole === "tutor" ? "/tutor/profile-setup" : "/student/dashboard", replace: true });
+    navigate({ to: assigned === "tutor" ? "/tutor/profile-setup" : "/student/dashboard", replace: true });
   }
 
   return (
