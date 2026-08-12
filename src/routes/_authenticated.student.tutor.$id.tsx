@@ -13,6 +13,7 @@ import { RatingStars } from "@/components/shared/rating-stars";
 import { UserAvatar } from "@/components/shared/user-avatar";
 import { EmptyState } from "@/components/shared/empty-state";
 import { RowsSkeleton } from "@/components/shared/loading-skeleton";
+import { DemoVideos } from "@/components/shared/demo-videos";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { DAYS, formatDate, formatTaka, formatTime } from "@/lib/edubridge";
@@ -41,6 +42,7 @@ type TutorDetailRow = {
   experience_years: number;
   avg_rating: number | string;
   total_reviews: number;
+  demo_video_urls: string[] | null;
   profiles: { full_name: string; avatar_url: string | null; address: string | null } | null;
 };
 
@@ -60,7 +62,7 @@ function TutorDetail() {
       const { data, error } = await supabase
         .from("tutor_profiles")
         .select(
-          "id, user_id, bio, qualifications, subjects, levels, hourly_rate, experience_years, avg_rating, total_reviews, profiles(full_name, avatar_url, address)",
+          "id, user_id, bio, qualifications, subjects, levels, hourly_rate, experience_years, avg_rating, total_reviews, demo_video_urls, profiles(full_name, avatar_url, address)",
         )
         .eq("id", id)
         .maybeSingle();
@@ -213,6 +215,8 @@ function TutorDetail() {
             </div>
           )}
         </div>
+
+        <DemoVideos urls={tutor.demo_video_urls ?? []} />
 
         <div className="rounded-xl border border-border bg-card p-6 shadow-sm">
           <h2 className="text-lg font-semibold text-foreground">Weekly availability</h2>

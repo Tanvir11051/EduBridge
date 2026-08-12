@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { Loader2 } from "lucide-react";
+import { Loader2, Plus, X } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
+import { youtubeId } from "@/components/shared/demo-videos";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { LEVELS, SUBJECTS } from "@/lib/edubridge";
 import { cn } from "@/lib/utils";
+
 
 export function TutorProfileForm({ redirectOnCreate = false }: { redirectOnCreate?: boolean }) {
   const { user, refresh } = useAuth();
@@ -23,6 +25,7 @@ export function TutorProfileForm({ redirectOnCreate = false }: { redirectOnCreat
   const [rate, setRate] = useState("800");
   const [experience, setExperience] = useState("1");
   const [isActive, setIsActive] = useState(true);
+  const [videos, setVideos] = useState<string[]>([""]);
   const [saving, setSaving] = useState(false);
 
   const { data: existing, isLoading } = useQuery({
@@ -31,7 +34,7 @@ export function TutorProfileForm({ redirectOnCreate = false }: { redirectOnCreat
     queryFn: async () => {
       const { data, error } = await supabase
         .from("tutor_profiles")
-        .select("id, bio, qualifications, subjects, levels, hourly_rate, experience_years, is_active")
+        .select("id, bio, qualifications, subjects, levels, hourly_rate, experience_years, is_active, demo_video_urls")
         .eq("user_id", user!.id)
         .maybeSingle();
       if (error) throw error;
@@ -48,6 +51,7 @@ export function TutorProfileForm({ redirectOnCreate = false }: { redirectOnCreat
     setRate(String(existing.hourly_rate ?? "800"));
     setExperience(String(existing.experience_years ?? 0));
     setIsActive(existing.is_active ?? true);
+    setVideos(existing.demo_video_urls?.length ? existing.demo_video_urls : [""]);
   }, [existing]);
 
   function toggle(list: string[], setList: (v: string[]) => void, value: string) {
@@ -61,6 +65,12 @@ export function TutorProfileForm({ redirectOnCreate = false }: { redirectOnCreat
       toast.error("Pick at least one subject.");
       return;
     }
+    const filledVideos = videos.map((v) => v.trim()).filter(Boolean);
+    const invalid = filledVideos.find((v) => !youtubeId(v));
+    if (invalid) {
+      toast.error(`Not a valid YouTube link: ${invalid}`);
+      return;
+    }
     setSaving(true);
     const payload = {
       bio: bio.trim() || null,
@@ -70,10 +80,12 @@ export function TutorProfileForm({ redirectOnCreate = false }: { redirectOnCreat
       hourly_rate: Number(rate) || 0,
       experience_years: Number(experience) || 0,
       is_active: isActive,
+      demo_video_urls: filledVideos,
     };
     const { error } = existing
       ? await supabase.from("tutor_profiles").update(payload).eq("id", existing.id)
       : await supabase.from("tutor_profiles").insert({ ...payload, user_id: user.id });
+
     setSaving(false);
     if (error) {
       toast.error(error.message);
@@ -161,6 +173,38 @@ export function TutorProfileForm({ redirectOnCreate = false }: { redirectOnCreat
           <Input id="exp" type="number" min={0} value={experience} onChange={(e) => setExperience(e.target.value)} />
         </div>
       </div>
+
+      <div className="space-y-2">
+        <Label>Demo class videos (YouTube)</Label>
+        <p className="text-sm text-muted-foreground">Students can watch these on your profile.</p>
+        <div className="space-y-2">
+          {videos.map((v, i) => (
+            <div key={i} className="flex items-center gap-2">
+              <Input
+                value={v}
+                onChange={(e) => setVideos(videos.map((x, j) => (j === i ? e.target.value : x)))}
+                placeholder="https://www.youtube.com/watch?v=..."
+              />
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                aria-label="Remove video link"
+                onClick={() => {
+                  const next = videos.filter((_, j) => j !== i);
+                  setVideos(next.length ? next : [""]);
+                }}
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+          ))}
+        </div>
+        <Button type="button" variant="outline" size="sm" onClick={() => setVideos([...videos, ""])}>
+          <Plus className="mr-2 h-4 w-4" /> Add another video
+        </Button>
+      </div>
+
 
       <div className="flex items-center justify-between rounded-lg border border-border p-4">
         <div>

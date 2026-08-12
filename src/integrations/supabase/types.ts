@@ -347,6 +347,7 @@ export type Database = {
           avg_rating: number
           bio: string | null
           created_at: string
+          demo_video_urls: string[]
           experience_years: number
           hourly_rate: number
           id: string
@@ -364,6 +365,7 @@ export type Database = {
           avg_rating?: number
           bio?: string | null
           created_at?: string
+          demo_video_urls?: string[]
           experience_years?: number
           hourly_rate?: number
           id?: string
@@ -381,6 +383,7 @@ export type Database = {
           avg_rating?: number
           bio?: string | null
           created_at?: string
+          demo_video_urls?: string[]
           experience_years?: number
           hourly_rate?: number
           id?: string
@@ -432,6 +435,7 @@ export type Database = {
           avatar_url: string | null
           avg_rating: number | null
           bio: string | null
+          demo_video_urls: string[] | null
           experience_years: number | null
           full_name: string | null
           hourly_rate: number | null
