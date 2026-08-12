@@ -64,16 +64,11 @@ function RegisterPage() {
       toast.success("Check your email to confirm your account.");
       return;
     }
-    const { role: assigned, error: roleError } = await ensureRole(data.session.user.id, selectedRole);
     setSubmitting(false);
-    if (roleError || !assigned) {
-      toast.error("Account created, but we couldn't set your role. Pick it on the next screen.");
-      navigate({ to: "/select-role" });
-      return;
-    }
     refresh();
     toast.success("Account created!");
-    navigate({ to: assigned === "tutor" ? "/tutor/profile-setup" : "/student/dashboard", replace: true });
+    navigate({ to: "/select-role", replace: true });
+
   }
 
   return (
