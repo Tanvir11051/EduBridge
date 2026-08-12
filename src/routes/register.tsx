@@ -8,9 +8,8 @@ import { Label } from "@/components/ui/label";
 import { PasswordInput } from "@/components/ui/password-input";
 
 import { supabase } from "@/integrations/supabase/client";
-import { useAuth, homePathForRole, type AppRole } from "@/hooks/use-auth";
-import { ensureRole } from "@/lib/ensure-role";
-import { cn } from "@/lib/utils";
+import { useAuth, homePathForRole } from "@/hooks/use-auth";
+
 
 export const Route = createFileRoute("/register")({
   head: () => ({
