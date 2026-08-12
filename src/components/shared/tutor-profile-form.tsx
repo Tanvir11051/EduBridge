@@ -25,6 +25,7 @@ export function TutorProfileForm({ redirectOnCreate = false }: { redirectOnCreat
   const [rate, setRate] = useState("800");
   const [experience, setExperience] = useState("1");
   const [isActive, setIsActive] = useState(true);
+  const [videos, setVideos] = useState<string[]>([""]);
   const [saving, setSaving] = useState(false);
 
   const { data: existing, isLoading } = useQuery({
@@ -33,7 +34,7 @@ export function TutorProfileForm({ redirectOnCreate = false }: { redirectOnCreat
     queryFn: async () => {
       const { data, error } = await supabase
         .from("tutor_profiles")
-        .select("id, bio, qualifications, subjects, levels, hourly_rate, experience_years, is_active")
+        .select("id, bio, qualifications, subjects, levels, hourly_rate, experience_years, is_active, demo_video_urls")
         .eq("user_id", user!.id)
         .maybeSingle();
       if (error) throw error;
@@ -50,6 +51,7 @@ export function TutorProfileForm({ redirectOnCreate = false }: { redirectOnCreat
     setRate(String(existing.hourly_rate ?? "800"));
     setExperience(String(existing.experience_years ?? 0));
     setIsActive(existing.is_active ?? true);
+    setVideos(existing.demo_video_urls?.length ? existing.demo_video_urls : [""]);
   }, [existing]);
 
   function toggle(list: string[], setList: (v: string[]) => void, value: string) {
@@ -63,6 +65,12 @@ export function TutorProfileForm({ redirectOnCreate = false }: { redirectOnCreat
       toast.error("Pick at least one subject.");
       return;
     }
+    const filledVideos = videos.map((v) => v.trim()).filter(Boolean);
+    const invalid = filledVideos.find((v) => !youtubeId(v));
+    if (invalid) {
+      toast.error(`Not a valid YouTube link: ${invalid}`);
+      return;
+    }
     setSaving(true);
     const payload = {
       bio: bio.trim() || null,
@@ -72,10 +80,12 @@ export function TutorProfileForm({ redirectOnCreate = false }: { redirectOnCreat
       hourly_rate: Number(rate) || 0,
       experience_years: Number(experience) || 0,
       is_active: isActive,
+      demo_video_urls: filledVideos,
     };
     const { error } = existing
       ? await supabase.from("tutor_profiles").update(payload).eq("id", existing.id)
       : await supabase.from("tutor_profiles").insert({ ...payload, user_id: user.id });
+
     setSaving(false);
     if (error) {
       toast.error(error.message);
