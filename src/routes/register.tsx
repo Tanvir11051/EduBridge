@@ -116,26 +116,6 @@ function RegisterPage() {
             />
 
           </div>
-          <div className="space-y-2">
-            <Label>I am a…</Label>
-            <div className="grid grid-cols-2 gap-3">
-              {(["student", "tutor"] as const).map((r) => (
-                <button
-                  type="button"
-                  key={r}
-                  onClick={() => setSelectedRole(r)}
-                  className={cn(
-                    "rounded-lg border px-4 py-3 text-sm font-medium capitalize transition-colors",
-                    selectedRole === r
-                      ? "border-primary bg-accent text-accent-foreground"
-                      : "border-border bg-background text-muted-foreground hover:bg-accent/50",
-                  )}
-                >
-                  {r}
-                </button>
-              ))}
-            </div>
-          </div>
           <Button type="submit" className="w-full" disabled={submitting}>
             {submitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Create account
