@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { Loader2 } from "lucide-react";
+import { Loader2, Plus, X } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
+import { youtubeId } from "@/components/shared/demo-videos";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { LEVELS, SUBJECTS } from "@/lib/edubridge";
 import { cn } from "@/lib/utils";
+
 
 export function TutorProfileForm({ redirectOnCreate = false }: { redirectOnCreate?: boolean }) {
   const { user, refresh } = useAuth();
