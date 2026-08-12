@@ -40,14 +40,17 @@ function Landing() {
     queryKey: ["featured-tutors"],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("tutor_profiles")
+        .from("public_tutors")
         .select(
-          "id, user_id, bio, subjects, levels, hourly_rate, avg_rating, total_reviews, experience_years, profiles(full_name, avatar_url)",
+          "id, user_id, bio, subjects, levels, hourly_rate, avg_rating, total_reviews, experience_years, full_name, avatar_url",
         )
         .order("avg_rating", { ascending: false })
         .limit(6);
       if (error) throw error;
-      return (data ?? []) as unknown as TutorListItem[];
+      return (data ?? []).map((t) => ({
+        ...t,
+        profiles: { full_name: t.full_name ?? "Tutor", avatar_url: t.avatar_url ?? null },
+      })) as unknown as TutorListItem[];
     },
   });
 

@@ -186,6 +186,13 @@ export type Database = {
             foreignKeyName: "offers_tutor_id_fkey"
             columns: ["tutor_id"]
             isOneToOne: false
+            referencedRelation: "public_tutors"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "offers_tutor_id_fkey"
+            columns: ["tutor_id"]
+            isOneToOne: false
             referencedRelation: "tutor_profiles"
             referencedColumns: ["id"]
           },
@@ -268,6 +275,13 @@ export type Database = {
             foreignKeyName: "reviews_tutor_id_fkey"
             columns: ["tutor_id"]
             isOneToOne: false
+            referencedRelation: "public_tutors"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reviews_tutor_id_fkey"
+            columns: ["tutor_id"]
+            isOneToOne: false
             referencedRelation: "tutor_profiles"
             referencedColumns: ["id"]
           },
@@ -310,6 +324,13 @@ export type Database = {
             columns: ["booked_offer_id"]
             isOneToOne: false
             referencedRelation: "offers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "schedule_slots_tutor_id_fkey"
+            columns: ["tutor_id"]
+            isOneToOne: false
+            referencedRelation: "public_tutors"
             referencedColumns: ["id"]
           },
           {
@@ -406,7 +427,32 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      public_tutors: {
+        Row: {
+          avatar_url: string | null
+          avg_rating: number | null
+          bio: string | null
+          experience_years: number | null
+          full_name: string | null
+          hourly_rate: number | null
+          id: string | null
+          is_active: boolean | null
+          levels: string[] | null
+          qualifications: string | null
+          subjects: string[] | null
+          total_reviews: number | null
+          user_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tutor_profiles_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       has_role: {
