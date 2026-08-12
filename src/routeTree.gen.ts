@@ -10,33 +10,418 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as SelectRoleRouteImport } from './routes/select-role'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated.admin'
+import { Route as AuthenticatedNotificationsRouteImport } from './routes/_authenticated.notifications'
+import { Route as AuthenticatedStudentRouteImport } from './routes/_authenticated.student'
+import { Route as AuthenticatedTutorRouteImport } from './routes/_authenticated.tutor'
+import { Route as ApiChatbotRouteImport } from './routes/api/chatbot'
+import { Route as AuthenticatedAdminComplaintsRouteImport } from './routes/_authenticated.admin.complaints'
+import { Route as AuthenticatedAdminDashboardRouteImport } from './routes/_authenticated.admin.dashboard'
+import { Route as AuthenticatedAdminOffersRouteImport } from './routes/_authenticated.admin.offers'
+import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated.admin.users'
+import { Route as AuthenticatedStudentComplaintsRouteImport } from './routes/_authenticated.student.complaints'
+import { Route as AuthenticatedStudentDashboardRouteImport } from './routes/_authenticated.student.dashboard'
+import { Route as AuthenticatedStudentOffersRouteImport } from './routes/_authenticated.student.offers'
+import { Route as AuthenticatedStudentProfileRouteImport } from './routes/_authenticated.student.profile'
+import { Route as AuthenticatedStudentReviewsRouteImport } from './routes/_authenticated.student.reviews'
+import { Route as AuthenticatedStudentSearchRouteImport } from './routes/_authenticated.student.search'
+import { Route as AuthenticatedTutorAvailabilityRouteImport } from './routes/_authenticated.tutor.availability'
+import { Route as AuthenticatedTutorComplaintsRouteImport } from './routes/_authenticated.tutor.complaints'
+import { Route as AuthenticatedTutorDashboardRouteImport } from './routes/_authenticated.tutor.dashboard'
+import { Route as AuthenticatedTutorOffersRouteImport } from './routes/_authenticated.tutor.offers'
+import { Route as AuthenticatedTutorProfileRouteImport } from './routes/_authenticated.tutor.profile'
+import { Route as AuthenticatedTutorProfileSetupRouteImport } from './routes/_authenticated.tutor.profile-setup'
+import { Route as AuthenticatedTutorReviewsRouteImport } from './routes/_authenticated.tutor.reviews'
+import { Route as AuthenticatedStudentOfferIdRouteImport } from './routes/_authenticated.student.offer.$id'
+import { Route as AuthenticatedStudentTutorIdRouteImport } from './routes/_authenticated.student.tutor.$id'
+import { Route as AuthenticatedTutorOfferIdRouteImport } from './routes/_authenticated.tutor.offer.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRoute = AuthenticatedRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SelectRoleRoute = SelectRoleRouteImport.update({
+  id: '/select-role',
+  path: '/select-role',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedNotificationsRoute =
+  AuthenticatedNotificationsRouteImport.update({
+    id: '/notifications',
+    path: '/notifications',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedStudentRoute = AuthenticatedStudentRouteImport.update({
+  id: '/student',
+  path: '/student',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedTutorRoute = AuthenticatedTutorRouteImport.update({
+  id: '/tutor',
+  path: '/tutor',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const ApiChatbotRoute = ApiChatbotRouteImport.update({
+  id: '/api/chatbot',
+  path: '/api/chatbot',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminComplaintsRoute =
+  AuthenticatedAdminComplaintsRouteImport.update({
+    id: '/complaints',
+    path: '/complaints',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminDashboardRoute =
+  AuthenticatedAdminDashboardRouteImport.update({
+    id: '/dashboard',
+    path: '/dashboard',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminOffersRoute =
+  AuthenticatedAdminOffersRouteImport.update({
+    id: '/offers',
+    path: '/offers',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedStudentComplaintsRoute =
+  AuthenticatedStudentComplaintsRouteImport.update({
+    id: '/complaints',
+    path: '/complaints',
+    getParentRoute: () => AuthenticatedStudentRoute,
+  } as any)
+const AuthenticatedStudentDashboardRoute =
+  AuthenticatedStudentDashboardRouteImport.update({
+    id: '/dashboard',
+    path: '/dashboard',
+    getParentRoute: () => AuthenticatedStudentRoute,
+  } as any)
+const AuthenticatedStudentOffersRoute =
+  AuthenticatedStudentOffersRouteImport.update({
+    id: '/offers',
+    path: '/offers',
+    getParentRoute: () => AuthenticatedStudentRoute,
+  } as any)
+const AuthenticatedStudentProfileRoute =
+  AuthenticatedStudentProfileRouteImport.update({
+    id: '/profile',
+    path: '/profile',
+    getParentRoute: () => AuthenticatedStudentRoute,
+  } as any)
+const AuthenticatedStudentReviewsRoute =
+  AuthenticatedStudentReviewsRouteImport.update({
+    id: '/reviews',
+    path: '/reviews',
+    getParentRoute: () => AuthenticatedStudentRoute,
+  } as any)
+const AuthenticatedStudentSearchRoute =
+  AuthenticatedStudentSearchRouteImport.update({
+    id: '/search',
+    path: '/search',
+    getParentRoute: () => AuthenticatedStudentRoute,
+  } as any)
+const AuthenticatedTutorAvailabilityRoute =
+  AuthenticatedTutorAvailabilityRouteImport.update({
+    id: '/availability',
+    path: '/availability',
+    getParentRoute: () => AuthenticatedTutorRoute,
+  } as any)
+const AuthenticatedTutorComplaintsRoute =
+  AuthenticatedTutorComplaintsRouteImport.update({
+    id: '/complaints',
+    path: '/complaints',
+    getParentRoute: () => AuthenticatedTutorRoute,
+  } as any)
+const AuthenticatedTutorDashboardRoute =
+  AuthenticatedTutorDashboardRouteImport.update({
+    id: '/dashboard',
+    path: '/dashboard',
+    getParentRoute: () => AuthenticatedTutorRoute,
+  } as any)
+const AuthenticatedTutorOffersRoute =
+  AuthenticatedTutorOffersRouteImport.update({
+    id: '/offers',
+    path: '/offers',
+    getParentRoute: () => AuthenticatedTutorRoute,
+  } as any)
+const AuthenticatedTutorProfileRoute =
+  AuthenticatedTutorProfileRouteImport.update({
+    id: '/profile',
+    path: '/profile',
+    getParentRoute: () => AuthenticatedTutorRoute,
+  } as any)
+const AuthenticatedTutorProfileSetupRoute =
+  AuthenticatedTutorProfileSetupRouteImport.update({
+    id: '/profile-setup',
+    path: '/profile-setup',
+    getParentRoute: () => AuthenticatedTutorRoute,
+  } as any)
+const AuthenticatedTutorReviewsRoute =
+  AuthenticatedTutorReviewsRouteImport.update({
+    id: '/reviews',
+    path: '/reviews',
+    getParentRoute: () => AuthenticatedTutorRoute,
+  } as any)
+const AuthenticatedStudentOfferIdRoute =
+  AuthenticatedStudentOfferIdRouteImport.update({
+    id: '/offer/$id',
+    path: '/offer/$id',
+    getParentRoute: () => AuthenticatedStudentRoute,
+  } as any)
+const AuthenticatedStudentTutorIdRoute =
+  AuthenticatedStudentTutorIdRouteImport.update({
+    id: '/tutor/$id',
+    path: '/tutor/$id',
+    getParentRoute: () => AuthenticatedStudentRoute,
+  } as any)
+const AuthenticatedTutorOfferIdRoute =
+  AuthenticatedTutorOfferIdRouteImport.update({
+    id: '/offer/$id',
+    path: '/offer/$id',
+    getParentRoute: () => AuthenticatedTutorRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/select-role': typeof SelectRoleRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/notifications': typeof AuthenticatedNotificationsRoute
+  '/student': typeof AuthenticatedStudentRouteWithChildren
+  '/tutor': typeof AuthenticatedTutorRouteWithChildren
+  '/api/chatbot': typeof ApiChatbotRoute
+  '/admin/complaints': typeof AuthenticatedAdminComplaintsRoute
+  '/admin/dashboard': typeof AuthenticatedAdminDashboardRoute
+  '/admin/offers': typeof AuthenticatedAdminOffersRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
+  '/student/complaints': typeof AuthenticatedStudentComplaintsRoute
+  '/student/dashboard': typeof AuthenticatedStudentDashboardRoute
+  '/student/offers': typeof AuthenticatedStudentOffersRoute
+  '/student/profile': typeof AuthenticatedStudentProfileRoute
+  '/student/reviews': typeof AuthenticatedStudentReviewsRoute
+  '/student/search': typeof AuthenticatedStudentSearchRoute
+  '/tutor/availability': typeof AuthenticatedTutorAvailabilityRoute
+  '/tutor/complaints': typeof AuthenticatedTutorComplaintsRoute
+  '/tutor/dashboard': typeof AuthenticatedTutorDashboardRoute
+  '/tutor/offers': typeof AuthenticatedTutorOffersRoute
+  '/tutor/profile': typeof AuthenticatedTutorProfileRoute
+  '/tutor/profile-setup': typeof AuthenticatedTutorProfileSetupRoute
+  '/tutor/reviews': typeof AuthenticatedTutorReviewsRoute
+  '/student/offer/$id': typeof AuthenticatedStudentOfferIdRoute
+  '/student/tutor/$id': typeof AuthenticatedStudentTutorIdRoute
+  '/tutor/offer/$id': typeof AuthenticatedTutorOfferIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/select-role': typeof SelectRoleRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/notifications': typeof AuthenticatedNotificationsRoute
+  '/student': typeof AuthenticatedStudentRouteWithChildren
+  '/tutor': typeof AuthenticatedTutorRouteWithChildren
+  '/api/chatbot': typeof ApiChatbotRoute
+  '/admin/complaints': typeof AuthenticatedAdminComplaintsRoute
+  '/admin/dashboard': typeof AuthenticatedAdminDashboardRoute
+  '/admin/offers': typeof AuthenticatedAdminOffersRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
+  '/student/complaints': typeof AuthenticatedStudentComplaintsRoute
+  '/student/dashboard': typeof AuthenticatedStudentDashboardRoute
+  '/student/offers': typeof AuthenticatedStudentOffersRoute
+  '/student/profile': typeof AuthenticatedStudentProfileRoute
+  '/student/reviews': typeof AuthenticatedStudentReviewsRoute
+  '/student/search': typeof AuthenticatedStudentSearchRoute
+  '/tutor/availability': typeof AuthenticatedTutorAvailabilityRoute
+  '/tutor/complaints': typeof AuthenticatedTutorComplaintsRoute
+  '/tutor/dashboard': typeof AuthenticatedTutorDashboardRoute
+  '/tutor/offers': typeof AuthenticatedTutorOffersRoute
+  '/tutor/profile': typeof AuthenticatedTutorProfileRoute
+  '/tutor/profile-setup': typeof AuthenticatedTutorProfileSetupRoute
+  '/tutor/reviews': typeof AuthenticatedTutorReviewsRoute
+  '/student/offer/$id': typeof AuthenticatedStudentOfferIdRoute
+  '/student/tutor/$id': typeof AuthenticatedStudentTutorIdRoute
+  '/tutor/offer/$id': typeof AuthenticatedTutorOfferIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/select-role': typeof SelectRoleRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/_authenticated/notifications': typeof AuthenticatedNotificationsRoute
+  '/_authenticated/student': typeof AuthenticatedStudentRouteWithChildren
+  '/_authenticated/tutor': typeof AuthenticatedTutorRouteWithChildren
+  '/api/chatbot': typeof ApiChatbotRoute
+  '/_authenticated/admin/complaints': typeof AuthenticatedAdminComplaintsRoute
+  '/_authenticated/admin/dashboard': typeof AuthenticatedAdminDashboardRoute
+  '/_authenticated/admin/offers': typeof AuthenticatedAdminOffersRoute
+  '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
+  '/_authenticated/student/complaints': typeof AuthenticatedStudentComplaintsRoute
+  '/_authenticated/student/dashboard': typeof AuthenticatedStudentDashboardRoute
+  '/_authenticated/student/offers': typeof AuthenticatedStudentOffersRoute
+  '/_authenticated/student/profile': typeof AuthenticatedStudentProfileRoute
+  '/_authenticated/student/reviews': typeof AuthenticatedStudentReviewsRoute
+  '/_authenticated/student/search': typeof AuthenticatedStudentSearchRoute
+  '/_authenticated/tutor/availability': typeof AuthenticatedTutorAvailabilityRoute
+  '/_authenticated/tutor/complaints': typeof AuthenticatedTutorComplaintsRoute
+  '/_authenticated/tutor/dashboard': typeof AuthenticatedTutorDashboardRoute
+  '/_authenticated/tutor/offers': typeof AuthenticatedTutorOffersRoute
+  '/_authenticated/tutor/profile': typeof AuthenticatedTutorProfileRoute
+  '/_authenticated/tutor/profile-setup': typeof AuthenticatedTutorProfileSetupRoute
+  '/_authenticated/tutor/reviews': typeof AuthenticatedTutorReviewsRoute
+  '/_authenticated/student/offer/$id': typeof AuthenticatedStudentOfferIdRoute
+  '/_authenticated/student/tutor/$id': typeof AuthenticatedStudentTutorIdRoute
+  '/_authenticated/tutor/offer/$id': typeof AuthenticatedTutorOfferIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/register'
+    | '/reset-password'
+    | '/select-role'
+    | '/admin'
+    | '/notifications'
+    | '/student'
+    | '/tutor'
+    | '/api/chatbot'
+    | '/admin/complaints'
+    | '/admin/dashboard'
+    | '/admin/offers'
+    | '/admin/users'
+    | '/student/complaints'
+    | '/student/dashboard'
+    | '/student/offers'
+    | '/student/profile'
+    | '/student/reviews'
+    | '/student/search'
+    | '/tutor/availability'
+    | '/tutor/complaints'
+    | '/tutor/dashboard'
+    | '/tutor/offers'
+    | '/tutor/profile'
+    | '/tutor/profile-setup'
+    | '/tutor/reviews'
+    | '/student/offer/$id'
+    | '/student/tutor/$id'
+    | '/tutor/offer/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/login'
+    | '/register'
+    | '/reset-password'
+    | '/select-role'
+    | '/admin'
+    | '/notifications'
+    | '/student'
+    | '/tutor'
+    | '/api/chatbot'
+    | '/admin/complaints'
+    | '/admin/dashboard'
+    | '/admin/offers'
+    | '/admin/users'
+    | '/student/complaints'
+    | '/student/dashboard'
+    | '/student/offers'
+    | '/student/profile'
+    | '/student/reviews'
+    | '/student/search'
+    | '/tutor/availability'
+    | '/tutor/complaints'
+    | '/tutor/dashboard'
+    | '/tutor/offers'
+    | '/tutor/profile'
+    | '/tutor/profile-setup'
+    | '/tutor/reviews'
+    | '/student/offer/$id'
+    | '/student/tutor/$id'
+    | '/tutor/offer/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/login'
+    | '/register'
+    | '/reset-password'
+    | '/select-role'
+    | '/_authenticated/admin'
+    | '/_authenticated/notifications'
+    | '/_authenticated/student'
+    | '/_authenticated/tutor'
+    | '/api/chatbot'
+    | '/_authenticated/admin/complaints'
+    | '/_authenticated/admin/dashboard'
+    | '/_authenticated/admin/offers'
+    | '/_authenticated/admin/users'
+    | '/_authenticated/student/complaints'
+    | '/_authenticated/student/dashboard'
+    | '/_authenticated/student/offers'
+    | '/_authenticated/student/profile'
+    | '/_authenticated/student/reviews'
+    | '/_authenticated/student/search'
+    | '/_authenticated/tutor/availability'
+    | '/_authenticated/tutor/complaints'
+    | '/_authenticated/tutor/dashboard'
+    | '/_authenticated/tutor/offers'
+    | '/_authenticated/tutor/profile'
+    | '/_authenticated/tutor/profile-setup'
+    | '/_authenticated/tutor/reviews'
+    | '/_authenticated/student/offer/$id'
+    | '/_authenticated/student/tutor/$id'
+    | '/_authenticated/tutor/offer/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  LoginRoute: typeof LoginRoute
+  RegisterRoute: typeof RegisterRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
+  SelectRoleRoute: typeof SelectRoleRoute
+  ApiChatbotRoute: typeof ApiChatbotRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,22 +433,313 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/select-role': {
+      id: '/select-role'
+      path: '/select-role'
+      fullPath: '/select-role'
+      preLoaderRoute: typeof SelectRoleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/notifications': {
+      id: '/_authenticated/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof AuthenticatedNotificationsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/student': {
+      id: '/_authenticated/student'
+      path: '/student'
+      fullPath: '/student'
+      preLoaderRoute: typeof AuthenticatedStudentRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/tutor': {
+      id: '/_authenticated/tutor'
+      path: '/tutor'
+      fullPath: '/tutor'
+      preLoaderRoute: typeof AuthenticatedTutorRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/api/chatbot': {
+      id: '/api/chatbot'
+      path: '/api/chatbot'
+      fullPath: '/api/chatbot'
+      preLoaderRoute: typeof ApiChatbotRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin/complaints': {
+      id: '/_authenticated/admin/complaints'
+      path: '/complaints'
+      fullPath: '/admin/complaints'
+      preLoaderRoute: typeof AuthenticatedAdminComplaintsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/dashboard': {
+      id: '/_authenticated/admin/dashboard'
+      path: '/dashboard'
+      fullPath: '/admin/dashboard'
+      preLoaderRoute: typeof AuthenticatedAdminDashboardRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/offers': {
+      id: '/_authenticated/admin/offers'
+      path: '/offers'
+      fullPath: '/admin/offers'
+      preLoaderRoute: typeof AuthenticatedAdminOffersRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/users': {
+      id: '/_authenticated/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AuthenticatedAdminUsersRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/student/complaints': {
+      id: '/_authenticated/student/complaints'
+      path: '/complaints'
+      fullPath: '/student/complaints'
+      preLoaderRoute: typeof AuthenticatedStudentComplaintsRouteImport
+      parentRoute: typeof AuthenticatedStudentRoute
+    }
+    '/_authenticated/student/dashboard': {
+      id: '/_authenticated/student/dashboard'
+      path: '/dashboard'
+      fullPath: '/student/dashboard'
+      preLoaderRoute: typeof AuthenticatedStudentDashboardRouteImport
+      parentRoute: typeof AuthenticatedStudentRoute
+    }
+    '/_authenticated/student/offers': {
+      id: '/_authenticated/student/offers'
+      path: '/offers'
+      fullPath: '/student/offers'
+      preLoaderRoute: typeof AuthenticatedStudentOffersRouteImport
+      parentRoute: typeof AuthenticatedStudentRoute
+    }
+    '/_authenticated/student/profile': {
+      id: '/_authenticated/student/profile'
+      path: '/profile'
+      fullPath: '/student/profile'
+      preLoaderRoute: typeof AuthenticatedStudentProfileRouteImport
+      parentRoute: typeof AuthenticatedStudentRoute
+    }
+    '/_authenticated/student/reviews': {
+      id: '/_authenticated/student/reviews'
+      path: '/reviews'
+      fullPath: '/student/reviews'
+      preLoaderRoute: typeof AuthenticatedStudentReviewsRouteImport
+      parentRoute: typeof AuthenticatedStudentRoute
+    }
+    '/_authenticated/student/search': {
+      id: '/_authenticated/student/search'
+      path: '/search'
+      fullPath: '/student/search'
+      preLoaderRoute: typeof AuthenticatedStudentSearchRouteImport
+      parentRoute: typeof AuthenticatedStudentRoute
+    }
+    '/_authenticated/tutor/availability': {
+      id: '/_authenticated/tutor/availability'
+      path: '/availability'
+      fullPath: '/tutor/availability'
+      preLoaderRoute: typeof AuthenticatedTutorAvailabilityRouteImport
+      parentRoute: typeof AuthenticatedTutorRoute
+    }
+    '/_authenticated/tutor/complaints': {
+      id: '/_authenticated/tutor/complaints'
+      path: '/complaints'
+      fullPath: '/tutor/complaints'
+      preLoaderRoute: typeof AuthenticatedTutorComplaintsRouteImport
+      parentRoute: typeof AuthenticatedTutorRoute
+    }
+    '/_authenticated/tutor/dashboard': {
+      id: '/_authenticated/tutor/dashboard'
+      path: '/dashboard'
+      fullPath: '/tutor/dashboard'
+      preLoaderRoute: typeof AuthenticatedTutorDashboardRouteImport
+      parentRoute: typeof AuthenticatedTutorRoute
+    }
+    '/_authenticated/tutor/offers': {
+      id: '/_authenticated/tutor/offers'
+      path: '/offers'
+      fullPath: '/tutor/offers'
+      preLoaderRoute: typeof AuthenticatedTutorOffersRouteImport
+      parentRoute: typeof AuthenticatedTutorRoute
+    }
+    '/_authenticated/tutor/profile': {
+      id: '/_authenticated/tutor/profile'
+      path: '/profile'
+      fullPath: '/tutor/profile'
+      preLoaderRoute: typeof AuthenticatedTutorProfileRouteImport
+      parentRoute: typeof AuthenticatedTutorRoute
+    }
+    '/_authenticated/tutor/profile-setup': {
+      id: '/_authenticated/tutor/profile-setup'
+      path: '/profile-setup'
+      fullPath: '/tutor/profile-setup'
+      preLoaderRoute: typeof AuthenticatedTutorProfileSetupRouteImport
+      parentRoute: typeof AuthenticatedTutorRoute
+    }
+    '/_authenticated/tutor/reviews': {
+      id: '/_authenticated/tutor/reviews'
+      path: '/reviews'
+      fullPath: '/tutor/reviews'
+      preLoaderRoute: typeof AuthenticatedTutorReviewsRouteImport
+      parentRoute: typeof AuthenticatedTutorRoute
+    }
+    '/_authenticated/student/offer/$id': {
+      id: '/_authenticated/student/offer/$id'
+      path: '/offer/$id'
+      fullPath: '/student/offer/$id'
+      preLoaderRoute: typeof AuthenticatedStudentOfferIdRouteImport
+      parentRoute: typeof AuthenticatedStudentRoute
+    }
+    '/_authenticated/student/tutor/$id': {
+      id: '/_authenticated/student/tutor/$id'
+      path: '/tutor/$id'
+      fullPath: '/student/tutor/$id'
+      preLoaderRoute: typeof AuthenticatedStudentTutorIdRouteImport
+      parentRoute: typeof AuthenticatedStudentRoute
+    }
+    '/_authenticated/tutor/offer/$id': {
+      id: '/_authenticated/tutor/offer/$id'
+      path: '/offer/$id'
+      fullPath: '/tutor/offer/$id'
+      preLoaderRoute: typeof AuthenticatedTutorOfferIdRouteImport
+      parentRoute: typeof AuthenticatedTutorRoute
+    }
   }
 }
 
+interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminComplaintsRoute: typeof AuthenticatedAdminComplaintsRoute
+  AuthenticatedAdminDashboardRoute: typeof AuthenticatedAdminDashboardRoute
+  AuthenticatedAdminOffersRoute: typeof AuthenticatedAdminOffersRoute
+  AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRoute
+}
+
+const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminComplaintsRoute: AuthenticatedAdminComplaintsRoute,
+  AuthenticatedAdminDashboardRoute: AuthenticatedAdminDashboardRoute,
+  AuthenticatedAdminOffersRoute: AuthenticatedAdminOffersRoute,
+  AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRoute,
+}
+
+const AuthenticatedAdminRouteWithChildren =
+  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
+
+interface AuthenticatedStudentRouteChildren {
+  AuthenticatedStudentComplaintsRoute: typeof AuthenticatedStudentComplaintsRoute
+  AuthenticatedStudentDashboardRoute: typeof AuthenticatedStudentDashboardRoute
+  AuthenticatedStudentOffersRoute: typeof AuthenticatedStudentOffersRoute
+  AuthenticatedStudentProfileRoute: typeof AuthenticatedStudentProfileRoute
+  AuthenticatedStudentReviewsRoute: typeof AuthenticatedStudentReviewsRoute
+  AuthenticatedStudentSearchRoute: typeof AuthenticatedStudentSearchRoute
+  AuthenticatedStudentOfferIdRoute: typeof AuthenticatedStudentOfferIdRoute
+  AuthenticatedStudentTutorIdRoute: typeof AuthenticatedStudentTutorIdRoute
+}
+
+const AuthenticatedStudentRouteChildren: AuthenticatedStudentRouteChildren = {
+  AuthenticatedStudentComplaintsRoute: AuthenticatedStudentComplaintsRoute,
+  AuthenticatedStudentDashboardRoute: AuthenticatedStudentDashboardRoute,
+  AuthenticatedStudentOffersRoute: AuthenticatedStudentOffersRoute,
+  AuthenticatedStudentProfileRoute: AuthenticatedStudentProfileRoute,
+  AuthenticatedStudentReviewsRoute: AuthenticatedStudentReviewsRoute,
+  AuthenticatedStudentSearchRoute: AuthenticatedStudentSearchRoute,
+  AuthenticatedStudentOfferIdRoute: AuthenticatedStudentOfferIdRoute,
+  AuthenticatedStudentTutorIdRoute: AuthenticatedStudentTutorIdRoute,
+}
+
+const AuthenticatedStudentRouteWithChildren =
+  AuthenticatedStudentRoute._addFileChildren(AuthenticatedStudentRouteChildren)
+
+interface AuthenticatedTutorRouteChildren {
+  AuthenticatedTutorAvailabilityRoute: typeof AuthenticatedTutorAvailabilityRoute
+  AuthenticatedTutorComplaintsRoute: typeof AuthenticatedTutorComplaintsRoute
+  AuthenticatedTutorDashboardRoute: typeof AuthenticatedTutorDashboardRoute
+  AuthenticatedTutorOffersRoute: typeof AuthenticatedTutorOffersRoute
+  AuthenticatedTutorProfileRoute: typeof AuthenticatedTutorProfileRoute
+  AuthenticatedTutorProfileSetupRoute: typeof AuthenticatedTutorProfileSetupRoute
+  AuthenticatedTutorReviewsRoute: typeof AuthenticatedTutorReviewsRoute
+  AuthenticatedTutorOfferIdRoute: typeof AuthenticatedTutorOfferIdRoute
+}
+
+const AuthenticatedTutorRouteChildren: AuthenticatedTutorRouteChildren = {
+  AuthenticatedTutorAvailabilityRoute: AuthenticatedTutorAvailabilityRoute,
+  AuthenticatedTutorComplaintsRoute: AuthenticatedTutorComplaintsRoute,
+  AuthenticatedTutorDashboardRoute: AuthenticatedTutorDashboardRoute,
+  AuthenticatedTutorOffersRoute: AuthenticatedTutorOffersRoute,
+  AuthenticatedTutorProfileRoute: AuthenticatedTutorProfileRoute,
+  AuthenticatedTutorProfileSetupRoute: AuthenticatedTutorProfileSetupRoute,
+  AuthenticatedTutorReviewsRoute: AuthenticatedTutorReviewsRoute,
+  AuthenticatedTutorOfferIdRoute: AuthenticatedTutorOfferIdRoute,
+}
+
+const AuthenticatedTutorRouteWithChildren =
+  AuthenticatedTutorRoute._addFileChildren(AuthenticatedTutorRouteChildren)
+
+interface AuthenticatedRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
+  AuthenticatedNotificationsRoute: typeof AuthenticatedNotificationsRoute
+  AuthenticatedStudentRoute: typeof AuthenticatedStudentRouteWithChildren
+  AuthenticatedTutorRoute: typeof AuthenticatedTutorRouteWithChildren
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
+  AuthenticatedNotificationsRoute: AuthenticatedNotificationsRoute,
+  AuthenticatedStudentRoute: AuthenticatedStudentRouteWithChildren,
+  AuthenticatedTutorRoute: AuthenticatedTutorRouteWithChildren,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
+  LoginRoute: LoginRoute,
+  RegisterRoute: RegisterRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
+  SelectRoleRoute: SelectRoleRoute,
+  ApiChatbotRoute: ApiChatbotRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
